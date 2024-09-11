@@ -3,6 +3,7 @@ package controllers
 import (
 	"database/sql"
 	"encoding/json"
+	"first-go-crud/models"
 	"first-go-crud/services"
 	"net/http"
 
@@ -34,7 +35,7 @@ func GetUser(db *sql.DB) http.HandlerFunc {
 
 func CreateUser(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var user services.User
+		var user models.User
 		if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
@@ -50,7 +51,7 @@ func CreateUser(db *sql.DB) http.HandlerFunc {
 func UpdateUser(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		var user services.User
+		var user models.User
 		if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
